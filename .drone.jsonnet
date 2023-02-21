@@ -17,9 +17,10 @@ local Build(platform, distro, os, isa, events) = {
       [ if os == "linux" then "image" ]: registry + "/honda-builder",
       [ if os == "windows" then "image" ]: registry + "/windows-builder",
       [ if os == "linux" then "commands" ]: [ "./ci/scripts/build.sh " + platform + " " + isa + " " + "100.0.0+${DRONE_COMMIT_SHA:0:8}" + " " + "${DRONE_BUILD_EVENT}"  ],
-      [ if os == "windows" then "commands" ]: [
-        "msbuild windows\\ZeroTierOne.sln /m /p:Configuration=Release  /property:Platform=x64 /t:ZeroTierOne:Rebuild",
-        "Get-ChildItem",
+      [ if os == "windows" then "commands" ]: [                      
+        "cd 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools'",
+        "Get-ChildItem",      
+        "msbuild windows\\ZeroTierOne.sln /m /p:Configuration=Release  /property:Platform=x64 /t:ZeroTierOne:Rebuild",=
       ]
     },
   ],
