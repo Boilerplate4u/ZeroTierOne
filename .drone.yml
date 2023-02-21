@@ -8,7 +8,7 @@ platform:
 pull: always
 steps:
 - commands:
-  - Get-ChildItem 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Microsoft\'
+  - Get-ChildItem 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Microsoft\VC'
   - msbuild windows\ZeroTierOne.sln /m /p:Configuration=Release  /property:Platform=x64
     /t:ZeroTierOne:Rebuild
   image: 084037375216.dkr.ecr.us-east-2.amazonaws.com/windows-builder
