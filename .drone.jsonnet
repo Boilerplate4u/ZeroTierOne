@@ -10,7 +10,10 @@ local Build(platform, distro, os, isa, events) = {
   "type": "docker",
   "pull": "always",
   "name": platform + " " + isa + " " + "build",
-  "clone": { "depth": 1 },
+  "clone": {
+    "depth": 1
+    
+  },
   "steps": [
     {
       "name": "build",
