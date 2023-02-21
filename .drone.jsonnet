@@ -2,9 +2,10 @@ local registry = "084037375216.dkr.ecr.us-east-2.amazonaws.com";
 
 local targets = [
 //      { "os": "linux",   "name": "sid", "isas": [ "386", "armv7", "amd64", "arm64", "mips64le", "ppc64le", "s390x", "riscv64" ], "events": [ "push", "tag", "custom" ] },
+      { "os": "windows", distro: "windows", "name": "windows",  "isas": [ "amd64" ], "events": [ "push", "tag", "custom" ] },
 ];
 
-local Build(platform, os, isa, events) = {
+local Build(platform, distro, os, isa, events) = {
   "kind": "pipeline",
   "type": "docker",
   "pull": "always",
@@ -13,23 +14,21 @@ local Build(platform, os, isa, events) = {
   "steps": [
     {
       "name": "build",
-      "image": registry + "/honda-builder",
-      "commands": [
-        "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin " + registry,
-        "./ci/scripts/build.sh " + platform + " " + isa + " " + "100.0.0+${DRONE_COMMIT_SHA:0:8}" + " " + "${DRONE_BUILD_EVENT}"
+      [ if os == "linux" then "image" ]: registry + "/honda-builder",
+      [ if os == "windows" then "image" ]: registry + "/windows-builder",
+      [ if os == "linux" then "commands" ]: [ "./ci/scripts/build.sh " + platform + " " + isa + " " + "100.0.0+${DRONE_COMMIT_SHA:0:8}" + " " + "${DRONE_BUILD_EVENT}"  ],
+      [ if os == "windows" then "commands" ]: [
+        "msbuild bytey.vcxproj /p:configuration=debug /p:platform=x64 /p:OutputPath=.",
+        "Get-ChildItem",
       ]
     },
-    // {
-    //   "name": "list",
-    //   "image": registry + "/honda-builder",
-    //   "commands": [ "ls -la " + platform ]
-    // },
-  ],  
-  [ if isa == "arm64" || isa == "armv7" then "platform" ]: { os: os, arch: "arm64" },
+  ],
+  "platform": {
+     "os": os,
+     [ if isa == "arm64" || isa == "armv7" then "arch" ]: "arm64",
+  },
   "trigger": { "event": events }
 };
-
-// puttin on the bits
 
 std.flattenArrays([
   [
