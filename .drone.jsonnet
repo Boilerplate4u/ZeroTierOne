@@ -30,10 +30,11 @@ local Build(platform, distro, os, isa, events) = {
   "trigger": { "event": events }
 };
 
+
 std.flattenArrays([
-  [
-     Build(p.name, p.os, isa, p.events)
-      for isa in p.isas
-  ]
-  for p in targets
+    [
+      Build(p.name, p.distro, p.os, isa, p.events)
+        for isa in p.isas
+    ]
+    for p in targets
 ])
