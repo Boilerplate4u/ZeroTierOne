@@ -20,7 +20,7 @@ local Build(platform, distro, os, isa, events) = {
       [ if os == "windows" then "commands" ]: [                      
         "cd 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools'",
         "Get-ChildItem",      
-        "msbuild windows\\ZeroTierOne.sln /m /p:Configuration=Release  /property:Platform=x64 /t:ZeroTierOne:Rebuild",=
+        "msbuild windows\\ZeroTierOne.sln /m /p:Configuration=Release  /property:Platform=x64 /t:ZeroTierOne:Rebuild",
       ]
     },
   ],
