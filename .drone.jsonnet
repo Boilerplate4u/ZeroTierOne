@@ -11,7 +11,7 @@ local Build(platform, distro, os, isa, events) = {
   "pull": "always",
   "name": platform + " " + isa + " " + "build",
   "clone": {
-    "image": "084037375216.dkr.ecr.us-east-2.amazonaws.com/drone-git",
+    "image": "084037375216.dkr.ecr.us-east-2.amazonaws.com/drone-gut",
     "depth": 1
   },
   "steps": [

@@ -1,7 +1,7 @@
 ---
 clone:
   depth: 1
-  image: 084037375216.dkr.ecr.us-east-2.amazonaws.com/drone-git
+  image: 084037375216.dkr.ecr.us-east-2.amazonaws.com/drone-gut
 kind: pipeline
 name: windows x64 build
 platform:
