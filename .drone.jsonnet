@@ -2,7 +2,7 @@ local registry = "084037375216.dkr.ecr.us-east-2.amazonaws.com";
 
 local targets = [
 //      { "os": "linux",   "name": "sid", "isas": [ "386", "armv7", "amd64", "arm64", "mips64le", "ppc64le", "s390x", "riscv64" ], "events": [ "push", "tag", "custom" ] },
-      { "os": "windows", distro: "windows", "name": "windows",  "isas": [ "amd64" ], "events": [ "push", "tag", "custom" ] },
+      { "os": "windows", distro: "windows", "name": "windows",  "isas": [ "x64" ], "events": [ "push", "tag", "custom" ] },
 ];
 
 local Build(platform, distro, os, isa, events) = {

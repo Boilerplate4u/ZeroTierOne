@@ -2,7 +2,7 @@
 clone:
   depth: 1
 kind: pipeline
-name: windows amd64 build
+name: windows x64 build
 platform:
   os: windows
 pull: always
